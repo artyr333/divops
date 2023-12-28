@@ -9,4 +9,4 @@
   - name: Install apache httpd  (state=present is optional)
     apt:
       name: nginx
-      state: present
+      state: absent

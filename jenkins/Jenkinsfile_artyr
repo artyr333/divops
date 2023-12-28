@@ -15,10 +15,7 @@ pipeline {
 
     }
 
-    environment {
-            SSH_PASS     = credentials('ssh_default_password')
 
-     }
 
     stages {
         stage('Stage 1') {
@@ -27,17 +24,12 @@ script {
 
 
                          //checkout([$class: 'GitSCM', branches: [[name: "master"]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'ci/']], gitTool: 'Default', submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'shilo-av-ssh', url: "ssh://git@github.com:TimurGalanin/Ansible.git"]]])
-                         checkout([$class: 'GitSCM', branches: [[name: 'main']],
-                                       doGenerateSubmoduleConfigurations: false,
-                                       extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'ci/']],
-                                       gitTool: 'Default',
-                                       submoduleCfg: [],  userRemoteConfigs: [[credentialsId: 'galanin_git_ssh', url: 'ssh://git@github.com/TimurGalanin/Ansible.git']]])
 
                          sh 'pwd && ls -li ci'
                          DEPLOY_TYPE = 'BUILDONOPENSHIFT4'
 
-                        withCredentials([sshUserPrivateKey(credentialsId: 'ssh_for_server',
-                                  keyFileVariable: 'JENKINS_PRIVATE_KEY', passphraseVariable: 'PASSPHRASE',
+                        withCredentials([sshUserPrivateKey(credentialsId: 'ssh-git',
+                                  keyFileVariable: 'JENKINS_PRIVATE_KEY'
                                   usernameVariable: 'USERNAME')]) {
 
                            // sh "echo ${JENKINS_PRIVATE_KEY} > ./.ssh_for_server"

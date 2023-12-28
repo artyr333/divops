@@ -28,19 +28,21 @@ script {
                          sh 'pwd && ls -li ci'
                          DEPLOY_TYPE = 'BUILDONOPENSHIFT4'
 
-                        withCredentials([sshUserPrivateKey(credentialsId: 'ssh-git',
-                                  keyFileVariable: 'JENKINS_PRIVATE_KEY'
-                                  usernameVariable: 'USERNAME')]) {
+                         withCredentials([sshUserPrivateKey(credentialsId: 'ssh-git',
+                                                           keyFileVariable: 'JENKINS_PRIVATE_KEY', passphraseVariable: 'PASSPHRASE',
+                                                            usernameVariable: 'USERNAME')]) {
+
+
 
                            // sh "echo ${JENKINS_PRIVATE_KEY} > ./.ssh_for_server"
                            // sh 'chmod 600 ./.ssh_for_server'
 
 
 
-                         ansiblePlaybook extras: "--private-key ${JENKINS_PRIVATE_KEY} -vv -u root --extra-vars \" inventory_dir=\"${WORKSPACE}/ci/inventories/dev/\"\" ",
+                         ansiblePlaybook extras: "--private-key ${JENKINS_PRIVATE_KEY} -vv -u root --extra-vars \" inventory_dir=\"${WORKSPACE}/ansible/inventories/dev/\"\" ",
                          installation: 'ansible29',
-                         inventory: "ci/inventories/dev/inventory",
-                         playbook: "ci/playbooks/task1/dev.yml"
+                         inventory: "ansible/inventories/dev/inventory",
+                         playbook: "ansible/dev.yml"
                        }
                        }
             }

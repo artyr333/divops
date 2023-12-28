@@ -41,8 +41,8 @@ script {
 
                          ansiblePlaybook extras: "--private-key ${JENKINS_PRIVATE_KEY} -vv -u root --extra-vars \" inventory_dir=\"${WORKSPACE}/ansible/inventories/dev/\"\" ",
                          installation: 'ansible29',
-                         inventory: "ansible/inventories/dev/inventory",
-                         playbook: "ansible/ping.yml"
+                         inventory: "${WORKSPACE}/ansible/inventories/dev/inventory",
+                         playbook: "${WORKSPACE}/ansible/ping.yml"
                        }
                        }
             }

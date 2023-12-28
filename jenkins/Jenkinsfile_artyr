@@ -25,7 +25,7 @@ script {
 
                          //checkout([$class: 'GitSCM', branches: [[name: "master"]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'ci/']], gitTool: 'Default', submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'shilo-av-ssh', url: "ssh://git@github.com:TimurGalanin/Ansible.git"]]])
 
-                         sh 'pwd && ls -li ci'
+                         sh 'pwd && ls -li '
                          DEPLOY_TYPE = 'BUILDONOPENSHIFT4'
 
                          withCredentials([sshUserPrivateKey(credentialsId: 'ssh-git',

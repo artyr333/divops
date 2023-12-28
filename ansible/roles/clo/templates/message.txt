@@ -1,0 +1,4 @@
+
+{% for item in rez3.json.results %}
+id:{{ item.id }}
+{% endfor %}

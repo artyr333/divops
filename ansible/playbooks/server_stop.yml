@@ -1,0 +1,7 @@
+---
+- hosts: web1
+  tasks:
+  - name: Run tasks
+    include_role:
+      name: postgres
+#      tasks_from: stopstart

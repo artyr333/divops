@@ -1,0 +1,54 @@
+---
+
+
+- name: GET PROJECTD
+  uri:
+    url: https://api.clo.ru/v1/projects
+    method: GET
+    headers:
+      Content-Type: 'application/json'
+      Authorization: 'Bearer {{ token }}'
+  register: rez
+
+- name: Debug
+  debug:
+    var: rez
+
+- name: set fact
+  set_fact:
+    rez2: '{{ rez.json.results |first }}'
+
+- name: Debug2
+  debug:
+    var: rez2
+
+- name: set fact
+  set_fact:
+    project_id: '{{ rez2.id }}'
+    image_id: "e3a5be78-dbff-410d-952b-64c13f11844e"
+
+
+- name: SERVER
+  uri:
+    url: 'https://api.clo.ru/v1/projects/{{ project_id}}/servers'
+    status_code: 200
+    method: GET
+    headers:
+      Content-Type: 'application/json'
+      Authorization: 'Bearer {{ token }}'
+
+  register: rez3
+
+- name: Debug3
+  debug:
+    var: rez3
+
+
+- name: Create service service
+  template:
+    src: list.txt
+    dest: '/tmp/report.txt'
+    mode: 0644
+
+# - name: Create service service
+#   shell: 'cat  /tmp/report.txt'

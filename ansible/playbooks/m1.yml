@@ -1,0 +1,13 @@
+
+---
+- hosts: web
+  gather_facts: no
+  tasks:
+  - name: Run tasks/other.yaml instead of 'main'
+    debug:
+
+  - name: "RUN task"
+    include_role:
+      name: docker
+      tasks_from: main
+
